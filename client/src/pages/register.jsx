@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -12,6 +13,8 @@ function Register() {
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleChange = (event) => {
     setFormData({
@@ -28,7 +31,7 @@ function Register() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/auth/register",
+        `${API_URL}/api/auth/register`,
         {
           method: "POST",
           headers: {
@@ -63,11 +66,16 @@ function Register() {
         <div className="auth-logo">SmartFlow</div>
 
         <h1>Create your account</h1>
+
         <p className="auth-subtitle">
           Start managing your productivity.
         </p>
 
-        {error && <div className="auth-error">{error}</div>}
+        {error && (
+          <div className="auth-error">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleRegister}>
           <input
@@ -97,8 +105,13 @@ function Register() {
             required
           />
 
-          <button type="submit" disabled={loading}>
-            { loading ? "Creating account..." : "Create Account"}
+          <button
+            type="submit"
+            disabled={loading}
+          >
+            {loading
+              ? "Creating account..."
+              : "Create Account"}
           </button>
         </form>
 
@@ -112,3 +125,4 @@ function Register() {
 }
 
 export default Register;
+
