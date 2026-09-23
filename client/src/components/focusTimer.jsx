@@ -1,11 +1,12 @@
+
 import { useEffect, useState } from "react";
+
+const API_URL = `${import.meta.env.VITE_API_URL}/api/focus`;
+const TIMER_URL = `${API_URL}/timer`;
 
 function FocusTimer({ seconds, setSeconds, onSessionSaved }) {
   const [running, setRunning] = useState(false);
   const [loading, setLoading] = useState(true);
-
-  const API_URL = "http://localhost:5000/api/focus";
-  const TIMER_URL = `${API_URL}/timer`;
 
   const getHeaders = () => {
     const token = localStorage.getItem("token");
@@ -118,8 +119,8 @@ function FocusTimer({ seconds, setSeconds, onSessionSaved }) {
 
   const safeSeconds = Number(seconds) || 0;
 
-const minutes = Math.floor(safeSeconds / 60);
-const remainingSeconds = safeSeconds % 60;
+  const minutes = Math.floor(safeSeconds / 60);
+  const remainingSeconds = safeSeconds % 60;
 
   if (loading) {
     return (
@@ -151,3 +152,4 @@ const remainingSeconds = safeSeconds % 60;
 }
 
 export default FocusTimer;
+
