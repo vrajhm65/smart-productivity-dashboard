@@ -1,6 +1,9 @@
+
 import { useEffect, useState } from "react";
 import Sidebar from "../components/sidebar";
 import Header from "../components/header";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 function Tasks() {
   const [tasks, setTasks] = useState([]);
@@ -14,7 +17,7 @@ function Tasks() {
 
   // GET TASKS
   useEffect(() => {
-    fetch("http://localhost:5000/api/tasks", {
+    fetch(`${API_URL}/api/tasks`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -41,20 +44,17 @@ function Tasks() {
     setSaving(true);
 
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/tasks",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            title,
-            completed: false,
-          }),
-        }
-      );
+      const response = await fetch(`${API_URL}/api/tasks`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          title,
+          completed: false,
+        }),
+      });
 
       const result = await response.json();
 
@@ -80,7 +80,7 @@ function Tasks() {
   const toggleTask = async (task) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/tasks/${task.id}`,
+        `${API_URL}/api/tasks/${task.id}`,
         {
           method: "PUT",
           headers: {
@@ -132,7 +132,7 @@ function Tasks() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/tasks/${task.id}`,
+        `${API_URL}/api/tasks/${task.id}`,
         {
           method: "PUT",
           headers: {
@@ -176,7 +176,7 @@ function Tasks() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/tasks/${taskId}`,
+        `${API_URL}/api/tasks/${taskId}`,
         {
           method: "DELETE",
           headers: {
@@ -203,6 +203,7 @@ function Tasks() {
   };
 
   const totalTasks = tasks.length;
+
   const completedTasks = tasks.filter(
     (task) => task.completed
   ).length;
@@ -295,6 +296,7 @@ function Tasks() {
             <div className="tasks-progress-top">
               <div>
                 <span>Today's Progress</span>
+
                 <strong>
                   {completedTasks} of {totalTasks} tasks
                 </strong>
@@ -334,7 +336,9 @@ function Tasks() {
             {loading ? (
               <div className="task-empty">
                 <div className="empty-line" />
+
                 <h3>Loading tasks</h3>
+
                 <p>
                   Getting your tasks ready...
                 </p>
@@ -342,7 +346,9 @@ function Tasks() {
             ) : tasks.length === 0 ? (
               <div className="task-empty">
                 <div className="empty-line" />
+
                 <h3>No tasks yet</h3>
+
                 <p>
                   Add your first task above and start
                   making progress.
@@ -494,3 +500,4 @@ function Tasks() {
 }
 
 export default Tasks;
+
