@@ -1,4 +1,4 @@
-const Plan = require("../models/Plan");
+const Plan = require("../models/plan");
 
 const formatPlan = (plan) => ({
   id: plan._id.toString(),
