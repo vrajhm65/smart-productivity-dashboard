@@ -1,5 +1,5 @@
 const FocusSession = require("../models/focusSession");
-const Timer = require("../models/Timer");
+const Timer = require("../models/timer");
 
 const getFocusSessions = async (req, res) => {
   try {
