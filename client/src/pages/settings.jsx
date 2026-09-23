@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -6,7 +7,7 @@ import Header from "../components/header";
 
 import "./settings.css";
 
-const API_URL = "http://localhost:5000/api/auth";
+const API_URL = `${import.meta.env.VITE_API_URL}/api/auth`;
 
 function Settings() {
     const navigate = useNavigate();
@@ -612,3 +613,4 @@ function Settings() {
 }
 
 export default Settings;
+
