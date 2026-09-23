@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import Sidebar from "../components/sidebar";
 import Header from "../components/header";
@@ -13,7 +14,7 @@ function Daily() {
   });
 
   const token = localStorage.getItem("token");
-  const API_URL = "http://localhost:5000/api/plans";
+  const API_URL = `${import.meta.env.VITE_API_URL}/api/plans`;
 
   const getHeaders = () => ({
     "Content-Type": "application/json",
@@ -247,10 +248,18 @@ function Daily() {
             <div className="daily-progress-card daily-progress-main">
               <div className="daily-progress-top">
                 <div>
-                  <span className="daily-card-label">TODAY'S PROGRESS</span>
-                  <strong>{completedPlans} of {plans.length} plans completed</strong>
+                  <span className="daily-card-label">
+                    TODAY'S PROGRESS
+                  </span>
+
+                  <strong>
+                    {completedPlans} of {plans.length} plans completed
+                  </strong>
                 </div>
-                <div className="daily-progress-percent">{progress}%</div>
+
+                <div className="daily-progress-percent">
+                  {progress}%
+                </div>
               </div>
 
               <div className="progress-bar">
@@ -273,9 +282,15 @@ function Daily() {
           </div>
 
           {showForm && (
-            <form className="daily-form daily-form-polished" onSubmit={submitPlan}>
+            <form
+              className="daily-form daily-form-polished"
+              onSubmit={submitPlan}
+            >
               <div className="daily-form-heading">
-                <span>{editingPlanId ? "EDIT PLAN" : "NEW PLAN"}</span>
+                <span>
+                  {editingPlanId ? "EDIT PLAN" : "NEW PLAN"}
+                </span>
+
                 <strong>
                   {editingPlanId
                     ? "Update the time or activity."
@@ -286,6 +301,7 @@ function Daily() {
               <div className="daily-form-fields">
                 <label>
                   <span>Time</span>
+
                   <input
                     type="time"
                     name="time"
@@ -297,6 +313,7 @@ function Daily() {
 
                 <label className="daily-form-title-field">
                   <span>Activity</span>
+
                   <input
                     type="text"
                     name="title"
@@ -315,8 +332,14 @@ function Daily() {
                   >
                     Cancel
                   </button>
-                  <button type="submit" className="daily-form-submit">
-                    {editingPlanId ? "Save Changes" : "Add Plan"}
+
+                  <button
+                    type="submit"
+                    className="daily-form-submit"
+                  >
+                    {editingPlanId
+                      ? "Save Changes"
+                      : "Add Plan"}
                   </button>
                 </div>
               </div>
@@ -326,20 +349,33 @@ function Daily() {
           <section className="daily-schedule-card">
             <div className="daily-schedule-header">
               <div>
-                <span className="section-label">YOUR SCHEDULE</span>
+                <span className="section-label">
+                  YOUR SCHEDULE
+                </span>
+
                 <h2>Today's plans</h2>
               </div>
+
               <span className="daily-schedule-count">
-                {plans.length} {plans.length === 1 ? "plan" : "plans"}
+                {plans.length}{" "}
+                {plans.length === 1 ? "plan" : "plans"}
               </span>
             </div>
 
             {plans.length === 0 ? (
               <div className="daily-empty daily-empty-polished">
                 <div className="empty-icon">✦</div>
+
                 <h2>Your day is empty.</h2>
-                <p>Add your first plan and build your schedule.</p>
-                <button type="button" onClick={openAddForm}>
+
+                <p>
+                  Add your first plan and build your schedule.
+                </p>
+
+                <button
+                  type="button"
+                  onClick={openAddForm}
+                >
                   + Create First Plan
                 </button>
               </div>
@@ -353,25 +389,42 @@ function Daily() {
                     key={plan.id}
                   >
                     <div className="daily-plan-time-wrap">
-                      <span className="daily-plan-time">{plan.time}</span>
+                      <span className="daily-plan-time">
+                        {plan.time}
+                      </span>
+
                       {index < sortedPlans.length - 1 && (
-                        <span className="daily-plan-connector" aria-hidden="true" />
+                        <span
+                          className="daily-plan-connector"
+                          aria-hidden="true"
+                        />
                       )}
                     </div>
 
                     <button
                       type="button"
-                      className={`plan-check ${plan.completed ? "checked" : ""}`}
+                      className={`plan-check ${
+                        plan.completed ? "checked" : ""
+                      }`}
                       onClick={() => togglePlan(plan)}
-                      aria-label={plan.completed ? "Mark plan as pending" : "Mark plan as completed"}
+                      aria-label={
+                        plan.completed
+                          ? "Mark plan as pending"
+                          : "Mark plan as completed"
+                      }
                     >
                       {plan.completed ? "✓" : ""}
                     </button>
 
                     <div className="daily-plan-content">
-                      <span className="daily-plan-title">{plan.title}</span>
+                      <span className="daily-plan-title">
+                        {plan.title}
+                      </span>
+
                       <span className="daily-plan-status">
-                        {plan.completed ? "Completed" : "Scheduled"}
+                        {plan.completed
+                          ? "Completed"
+                          : "Scheduled"}
                       </span>
                     </div>
 
@@ -406,3 +459,4 @@ function Daily() {
 }
 
 export default Daily;
+
