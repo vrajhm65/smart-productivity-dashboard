@@ -1,8 +1,11 @@
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../components/sidebar";
 import Header from "../components/header";
 import FocusTimer from "../components/FocusTimer";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
@@ -24,13 +27,13 @@ function Dashboard() {
     const loadDashboard = async () => {
       try {
         const [tasksRes, plansRes, focusRes] = await Promise.all([
-          fetch("http://localhost:5000/api/tasks", {
+          fetch(`${API_URL}/api/tasks`, {
             headers: authHeaders,
           }),
-          fetch("http://localhost:5000/api/plans", {
+          fetch(`${API_URL}/api/plans`, {
             headers: authHeaders,
           }),
-          fetch("http://localhost:5000/api/focus", {
+          fetch(`${API_URL}/api/focus`, {
             headers: authHeaders,
           }),
         ]);
@@ -171,7 +174,7 @@ function Dashboard() {
   const toggleTask = async (task) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/tasks/${task.id}`,
+        `${API_URL}/api/tasks/${task.id}`,
         {
           method: "PUT",
           headers: {
@@ -220,7 +223,7 @@ function Dashboard() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/tasks/${task.id}`,
+        `${API_URL}/api/tasks/${task.id}`,
         {
           method: "PUT",
           headers: {
@@ -273,7 +276,7 @@ function Dashboard() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/tasks/${task.id}`,
+        `${API_URL}/api/tasks/${task.id}`,
         {
           method: "DELETE",
           headers: {
@@ -708,3 +711,4 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
