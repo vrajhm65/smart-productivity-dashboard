@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import Sidebar from "../components/sidebar";
 import Header from "../components/header";
@@ -23,6 +24,8 @@ function Calendar() {
 
   const token = localStorage.getItem("token");
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const headers = {
     Authorization: `Bearer ${token}`,
   };
@@ -35,13 +38,13 @@ function Calendar() {
     try {
       const [taskResponse, planResponse, focusResponse] =
         await Promise.all([
-          fetch("http://localhost:5000/api/tasks", {
+          fetch(`${API_URL}/api/tasks`, {
             headers,
           }),
-          fetch("http://localhost:5000/api/plans", {
+          fetch(`${API_URL}/api/plans`, {
             headers,
           }),
-          fetch("http://localhost:5000/api/focus", {
+          fetch(`${API_URL}/api/focus`, {
             headers,
           }),
         ]);
@@ -239,7 +242,7 @@ function Calendar() {
       setMessage("");
 
       const response = await fetch(
-        "http://localhost:5000/api/tasks",
+        `${API_URL}/api/tasks`,
         {
           method: "POST",
           headers: {
@@ -297,7 +300,7 @@ function Calendar() {
       setMessage("");
 
       const response = await fetch(
-        "http://localhost:5000/api/plans",
+        `${API_URL}/api/plans`,
         {
           method: "POST",
           headers: {
@@ -865,3 +868,4 @@ function Calendar() {
 }
 
 export default Calendar;
+
