@@ -4,6 +4,7 @@ import Sidebar from "../components/sidebar";
 import Header from "../components/header";
 
 const API_URL = import.meta.env.VITE_API_URL;
+console.log("SMARTFLOW API URL:", API_URL);
 
 function Tasks() {
   const [tasks, setTasks] = useState([]);
