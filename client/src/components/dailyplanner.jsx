@@ -1,4 +1,7 @@
+
 import { useEffect, useState } from "react";
+
+const API_URL = `${import.meta.env.VITE_API_URL}/api/plans`;
 
 function DailyPlanner() {
   const [plans, setPlans] = useState([]);
@@ -8,8 +11,6 @@ function DailyPlanner() {
     time: "",
     title: "",
   });
-
-  const API_URL = "http://localhost:5000/api/plans";
 
   const getHeaders = () => {
     const token = localStorage.getItem("token");
@@ -140,73 +141,5 @@ function DailyPlanner() {
         >
           {showForm ? "Cancel" : "+ Add Plan"}
         </button>
-      </div>
+      </
 
-      {showForm && (
-        <form className="plan-form" onSubmit={handleAddPlan}>
-          <input
-            type="time"
-            value={newPlan.time}
-            onChange={(event) =>
-              setNewPlan({
-                ...newPlan,
-                time: event.target.value,
-              })
-            }
-            required
-          />
-
-          <input
-            type="text"
-            placeholder="What are you planning?"
-            value={newPlan.title}
-            onChange={(event) =>
-              setNewPlan({
-                ...newPlan,
-                title: event.target.value,
-              })
-            }
-            required
-          />
-
-          <button type="submit">Add</button>
-        </form>
-      )}
-
-      <div className="planner-list">
-        {plans.length === 0 ? (
-          <p className="empty-state">No plans yet. Add one to get started.</p>
-        ) : (
-          plans.map((plan) => (
-            <div className="planner-item" key={plan.id}>
-              <div className="planner-time">{plan.time}</div>
-
-              <div className="planner-content">
-                <input
-                  type="checkbox"
-                  checked={plan.completed}
-                  onChange={() =>
-                    handleTogglePlan(plan.id, plan.completed)
-                  }
-                />
-
-                <span className={plan.completed ? "completed" : ""}>
-                  {plan.title}
-                </span>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => handleDeletePlan(plan.id)}
-              >
-                Delete
-              </button>
-            </div>
-          ))
-        )}
-      </div>
-    </section>
-  );
-}
-
-export default DailyPlanner;
