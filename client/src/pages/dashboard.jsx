@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../components/sidebar";
 import Header from "../components/header";
-import FocusTimer from "../components/FocusTimer";
+import FocusTimer from "../components/focusTimer";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
